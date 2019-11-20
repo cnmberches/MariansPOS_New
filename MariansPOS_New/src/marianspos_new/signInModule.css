@@ -1,0 +1,21 @@
+.registerBtn
+{
+    -fx-background-color: #fff;
+    -fx-border-color:  #616161;
+}
+
+.signInBtn
+{   
+    -fx-background-color: #333652;
+    -fx-background-radius: 0;
+}
+
+.registerBtn:hover
+{
+    -fx-background-color: rgba(189,189,189, .2);
+}
+
+.signInBtn:hover
+{
+    -fx-background-color: rgba(51,54,82, .2);
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="910.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.MenuReportModuleController">
+    <stylesheets>
+        <URL value="@menuReportModule.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="menu_tbl" layoutX="29.0" layoutY="26.0" onMouseClicked="#clickItem" prefHeight="513.0" prefWidth="852.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="menu_tbl">
+         <columnResizePolicy>
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="29.0" layoutY="587.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="151.0" style="-fx-background-color: #fff; -fx-border-color: #616161;" text="BACK">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="730.0" layoutY="587.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="151.0" styleClass="signInBtn" stylesheets="@SignInModule.css" text="ADD A MENU" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

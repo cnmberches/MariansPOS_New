@@ -1,0 +1,32 @@
+.menuReportBtn
+{
+    -fx-background-color: #FFCF8C;
+    -fx-text-fill: #000;
+}
+
+.salesReportBtn
+{
+    -fx-background-color: #FFAD8A;
+    -fx-text-fill: #000;
+}
+
+.accMgmBtn
+{
+    -fx-background-color: #9C9BCF;
+    -fx-text-fill: #000;
+}
+
+.menuReportBtn:hover
+{
+    -fx-background-color: rgba(255,207,140, .2);
+}
+
+.salesReportBtn:hover
+{
+    -fx-background-color: rgba(255,173,138, .2);
+}
+
+.accMgmBtn:hover
+{
+    -fx-background-color: rgba(156,155,207, .2);
+}

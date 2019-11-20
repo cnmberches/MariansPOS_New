@@ -1,0 +1,10 @@
+.available_tb:selected {
+    -fx-background-color: rgb(250,208,44);
+    -fx-text-fill: rgb(0,0,0);
+}
+
+.available_tb
+{
+    -fx-background-color: rgba(250,208,44, .4);
+    -fx-text-fill: rgba(0,0,0,.4);
+}

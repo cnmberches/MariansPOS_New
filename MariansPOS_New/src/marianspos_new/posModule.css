@@ -1,0 +1,52 @@
+.subtract_btn
+{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-image: url('../images_and_icons/subtract.png');
+}
+.add_btn
+{
+    -fx-background-image: url('../images_and_icons/add.png');
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.category_cb
+{
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
+}
+
+.addToOrderBtn
+{
+    -fx-background-color: #90ADC6;
+    -fx-background-radius: 0;
+}
+
+.addToOrderBtn:hover
+{
+    -fx-background-color: rgba(144,173,198, .2);
+    -fx-text-fill: rgba(0,0,0, .2);
+}
+
+.confirmOrder_btn
+{
+    -fx-background-color: #333652;
+    -fx-background-radius: 0;
+}
+
+.addToOrderBtn:hover
+{
+    -fx-background-color: rgba(144,173,198, .2);
+    -fx-text-fill: rgba(51,54,82, .2);
+}
