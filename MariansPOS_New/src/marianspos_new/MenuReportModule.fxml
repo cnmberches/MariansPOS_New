@@ -15,12 +15,7 @@
          <columnResizePolicy>
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="29.0" layoutY="587.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="151.0" style="-fx-background-color: #fff; -fx-border-color: #616161;" text="BACK">
-         <font>
-            <Font name="Poppins Regular" size="14.0" />
-         </font>
-      </Button>
-      <Button layoutX="730.0" layoutY="587.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="151.0" styleClass="signInBtn" stylesheets="@SignInModule.css" text="ADD A MENU" textFill="WHITE">
+      <Button layoutX="730.0" layoutY="587.0" mnemonicParsing="false" onAction="#add_menu" prefHeight="32.0" prefWidth="151.0" styleClass="addMenuBtn" text="ADD A MENU" textFill="WHITE">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>

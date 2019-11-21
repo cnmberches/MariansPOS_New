@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -42,6 +44,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -213,7 +218,7 @@ public class POSModuleController implements Initializable {
     {
         if(!orders_data.isEmpty())
         {
-            openModule("VoidModule.fxml", Modality.APPLICATION_MODAL, "Void");
+            openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Void");
             if(Global.isVoid)
             {
                 ObservableList<ObservableList> selectedOrder, allOrders;
@@ -262,7 +267,7 @@ public class POSModuleController implements Initializable {
     }
     
     @FXML
-    private void logOut(ActionEvent event)
+    private void logOut(ActionEvent event) throws IOException
     {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?" , ButtonType.NO, ButtonType.YES);
         alert.setTitle("Log out user?");
@@ -270,6 +275,7 @@ public class POSModuleController implements Initializable {
         alert.showAndWait();
         if(alert.getResult().equals(ButtonType.YES))
         {
+            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
@@ -592,7 +598,7 @@ public class POSModuleController implements Initializable {
         }
     }
      
-     private Stage openModule(String fxmlFile, Modality modal, String title) throws IOException
+    private Stage openModule(String fxmlFile, Modality modal, String title) throws IOException
     {
         //this function is for opening a new window where its parameter include the fxml file in string, 
         //how the window will open (dialog or not),and its title 
@@ -611,7 +617,28 @@ public class POSModuleController implements Initializable {
         //this makes sure that size is equal to the size of window based on the code
         stage.sizeToScene();
         //this puts the fxml file design in the window
-        stage.setScene(new Scene(root));  
+        Scene scene = new Scene(root);
+        if(fxmlFile.equals("SignInModule.fxml"))
+        {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_ANY);
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                    try {
+                        Global.isForAdminModule = true;
+                        Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
+                        
+                        ke.consume(); // <-- stops passing the event to next node
+                    } catch (IOException ex) {
+                        Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
+                    }
+                    System.out.println("dd");
+                }
+            }
+        });
+        }
+        stage.setScene(scene);  
         //this makes the window viewable to the user
         stage.show();
 

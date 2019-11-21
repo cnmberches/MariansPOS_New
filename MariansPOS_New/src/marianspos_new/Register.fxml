@@ -20,7 +20,7 @@
    <children>
       <Pane prefHeight="596.0" prefWidth="400.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="password_TextField" stylesheets="@register.css">
          <children>
-            <TextField id="name_textField" fx:id="name_textField" layoutX="25.0" layoutY="66.0" prefHeight="35.0" prefWidth="351.0" styleClass="name_textField" stylesheets="@register.css">
+            <TextField id="name_textField" fx:id="name_textField" layoutX="25.0" layoutY="66.0" prefHeight="38.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="name_textField">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -28,7 +28,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField id="username_textField" fx:id="username_textField" layoutX="25.0" layoutY="146.0" prefHeight="35.0" prefWidth="351.0" styleClass="username_textField" stylesheets="@register.css">
+            <TextField id="username_textField" fx:id="username_textField" layoutX="25.0" layoutY="146.0" prefHeight="35.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="username_textField" stylesheets="@register.css">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <PasswordField id="password_textField" fx:id="password_textField" layoutX="29.0" layoutY="233.0" prefHeight="35.0" prefWidth="351.0" styleClass="password_textField" stylesheets="@register.css">
+            <PasswordField id="password_textField" fx:id="password_textField" layoutX="29.0" layoutY="233.0" prefHeight="35.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="password_textField" stylesheets="@register.css">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Font name="Poppins Regular" size="16.0" />
                </font>
             </Label>
-            <PasswordField id="repassword_textField" fx:id="repassword_textField" layoutX="29.0" layoutY="319.0" prefHeight="35.0" prefWidth="351.0" styleClass="repassword_textField" stylesheets="@register.css">
+            <PasswordField id="repassword_textField" fx:id="repassword_textField" layoutX="29.0" layoutY="319.0" prefHeight="35.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="repassword_textField" stylesheets="@register.css">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -67,7 +67,7 @@
                   <Font name="Poppins Regular" size="16.0" />
                </font>
             </Label>
-            <Button id="register_Btn" fx:id="register_Btn" layoutX="20.0" layoutY="542.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="35.0" prefWidth="360.0" style="-fx-background-color: #FF5722; -fx-background-radius: 0;" styleClass="register_Btn" stylesheets="@register.css" text="Register" textFill="WHITE">
+            <Button id="register_Btn" fx:id="register_Btn" layoutX="20.0" layoutY="542.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="35.0" prefWidth="360.0" styleClass="register_Btn" text="Register" textFill="WHITE">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
@@ -94,7 +94,7 @@
                   </Label>
                </children>
             </Pane>
-            <DatePicker id="datePicker" fx:id="datePicker" layoutX="26.0" layoutY="493.0" style="-fx-background-radius: 0;" styleClass="datePicker" />
+            <DatePicker id="datePicker" fx:id="datePicker" layoutX="26.0" layoutY="493.0" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;" styleClass="datePicker" />
             <Label layoutX="24.0" layoutY="467.0" text="Date Hired">
                <font>
                   <Font name="Poppins Regular" size="16.0" />

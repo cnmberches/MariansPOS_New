@@ -14,8 +14,9 @@
       <TableView fx:id="acc_tbl" layoutX="34.0" layoutY="27.0" onMouseClicked="#clickItem" prefHeight="450.0" prefWidth="671.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" />
       <Button id="add_btn" layoutX="554.0" layoutY="503.0" mnemonicParsing="false" onAction="#addAccount" prefHeight="28.0" prefWidth="151.0" style="-fx-background-color: #FF5722; -fx-background-radius: 0;" styleClass="add_btn" text="Add a Account" textFill="WHITE">
          <font>
-            <Font name="Roboto" size="14.0" />
+            <Font name="Poppins Regular" size="14.0" />
          </font>
       </Button>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

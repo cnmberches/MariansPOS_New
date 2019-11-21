@@ -1,0 +1,12 @@
+.addMenuBtn
+{
+    -fx-background-color: #333652;
+    -fx-background-radius: 0;
+    -fx-text-fill: #fff;
+}
+
+.addMenuBtn:hover
+{
+    -fx-background-color: rgba(51,54,82, .2);
+    -fx-text-fill: rgba(255,255,255,.8);
+}

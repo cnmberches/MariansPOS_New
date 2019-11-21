@@ -1,11 +1,11 @@
 package marianspos_new;
 
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Global
 {
+    
     static String name, role, account_id, username;
     static String[] inventoryClickedItems;
     static String[] menuClickedItems;
@@ -17,6 +17,8 @@ public class Global
     static boolean isForAddAccount = true;
     static int totalCost;
     static boolean isVoid = false;
+    static boolean isForAdminModule = false;
+    static boolean isPasswordCorrect = false;
     static ObservableList<ObservableList> orders;
     static int transaction_id;
 }

@@ -24,12 +24,12 @@
                   <Font name="Poppins Medium" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="username_tf" layoutX="61.0" layoutY="135.0" prefHeight="30.0" prefWidth="222.0" promptText="username" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;">
+            <TextField fx:id="username_tf" layoutX="61.0" layoutY="135.0" onKeyPressed="#keyCapture" prefHeight="30.0" prefWidth="222.0" promptText="username" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="password_tf" layoutX="61.0" layoutY="181.0" prefHeight="30.0" prefWidth="222.0" promptText="Password" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #fff; -fx-border-color: #616161;">
+            <PasswordField fx:id="password_tf" layoutX="61.0" layoutY="181.0" onKeyPressed="#keyCapture" prefHeight="30.0" prefWidth="222.0" promptText="Password" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #fff; -fx-border-color: #616161;">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>

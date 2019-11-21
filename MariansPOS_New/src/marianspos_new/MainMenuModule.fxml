@@ -39,7 +39,7 @@
             </Label>
          </children>
       </Pane>
-      <Button layoutX="623.0" layoutY="447.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="151.0" style="-fx-background-color: #fff; -fx-border-color: #616161;" text="SIGN OUT">
+      <Button fx:id="signOut_btn" layoutX="623.0" layoutY="447.0" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="151.0" styleClass="signOutBtn" text="SIGN OUT">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>

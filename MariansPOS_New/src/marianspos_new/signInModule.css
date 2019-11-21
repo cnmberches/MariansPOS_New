@@ -2,20 +2,24 @@
 {
     -fx-background-color: #fff;
     -fx-border-color:  #616161;
+    -fx-text-fill: #000;
 }
 
 .signInBtn
 {   
     -fx-background-color: #333652;
     -fx-background-radius: 0;
+    -fx-text-fill: #fff;
 }
 
 .registerBtn:hover
 {
     -fx-background-color: rgba(189,189,189, .2);
+    -fx-text-fill: rgba(0,0,0,.8);
 }
 
 .signInBtn:hover
 {
     -fx-background-color: rgba(51,54,82, .2);
+    -fx-text-fill: rgba(255,255,255,.8);
 }

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,8 +20,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -29,6 +36,9 @@ public class MainMenuModuleController implements Initializable {
 
     @FXML
     private Label date_lbl, time_lbl, name_lbl;
+    
+    @FXML
+    private Button signOut_btn;
     
     @FXML
     private void salesReport(ActionEvent event) throws IOException {
@@ -178,7 +188,7 @@ public class MainMenuModuleController implements Initializable {
     }
     
     @FXML
-    private void logOut(ActionEvent event)
+    private void logOut(ActionEvent event) throws IOException
     {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?" , ButtonType.NO, ButtonType.YES);
         alert.setTitle("Log out user?");
@@ -189,6 +199,7 @@ public class MainMenuModuleController implements Initializable {
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
+            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
         }
     }
     
@@ -208,14 +219,14 @@ public class MainMenuModuleController implements Initializable {
         clock.play();  
     }    
     
-    Stage openModule(String fxmlFile, Modality modal, String title) throws IOException
+    private Stage openModule(String fxmlFile, Modality modal, String title) throws IOException
     {
         //this function is for opening a new window where its parameter include the fxml file in string, 
         //how the window will open (dialog or not),and its title 
         //fxml loader is used to get the fxml file wherein it has the codes for the design of the window
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
         //this parent root is for loading all the codes for design
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root = (Parent) fxmlLoader.load();
         //this stage is for creating the window
         Stage stage = new Stage();
         //this function is for how the window will open (window or dialog)
@@ -227,9 +238,33 @@ public class MainMenuModuleController implements Initializable {
         //this makes sure that size is equal to the size of window based on the code
         stage.sizeToScene();
         //this puts the fxml file design in the window
-        stage.setScene(new Scene(root1));  
+        Scene scene = new Scene(root);
+        if(fxmlFile.equals("SignInModule.fxml"))
+        {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_ANY);
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                    try {
+                        Global.isForAdminModule = true;
+                        Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
+                        
+                        ke.consume(); // <-- stops passing the event to next node
+                    } catch (IOException ex) {
+                        Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
+                    }
+                    System.out.println("dd");
+                }
+            }
+        });
+        }
+        stage.setScene(scene);  
         //this makes the window viewable to the user
         stage.show();
+
+        //this if statement is to check if the window is showned not as a dialog
+        //if it is WINDOW_MODAL, the main menu or log in module will close from the screen
         return stage;
     }
   

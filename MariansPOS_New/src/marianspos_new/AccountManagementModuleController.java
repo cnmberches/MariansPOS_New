@@ -5,11 +5,14 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +20,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -93,7 +100,7 @@ public class AccountManagementModuleController implements Initializable {
                 final int j = i;
                 //create a column
                 TableColumn col = new TableColumn(columns[i]);
-                col.setStyle(" -fx-font-family: 'Roboto'; -fx-font-size: 14px;");
+                col.setStyle(" -fx-font-family: 'Poppins'; -fx-font-size: 14px;");
                 col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>()
                 {
                     public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param)
@@ -126,14 +133,14 @@ public class AccountManagementModuleController implements Initializable {
         {
         }
     }
-    void openModule(String fxmlFile, Modality modal, String title) throws IOException
+    private Stage openModule(String fxmlFile, Modality modal, String title) throws IOException
     {
         //this function is for opening a new window where its parameter include the fxml file in string, 
         //how the window will open (dialog or not),and its title 
         //fxml loader is used to get the fxml file wherein it has the codes for the design of the window
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
         //this parent root is for loading all the codes for design
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root = (Parent) fxmlLoader.load();
         //this stage is for creating the window
         Stage stage = new Stage();
         //this function is for how the window will open (window or dialog)
@@ -145,8 +152,33 @@ public class AccountManagementModuleController implements Initializable {
         //this makes sure that size is equal to the size of window based on the code
         stage.sizeToScene();
         //this puts the fxml file design in the window
-        stage.setScene(new Scene(root1));  
+        Scene scene = new Scene(root);
+        if(fxmlFile.equals(root))
+        {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_ANY);
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                    try {
+                        Global.isForAdminModule = true;
+                        Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
+                        
+                        ke.consume(); // <-- stops passing the event to next node
+                    } catch (IOException ex) {
+                        Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
+                    }
+                    System.out.println("dd");
+                }
+            }
+        });
+        }
+        stage.setScene(scene);  
         //this makes the window viewable to the user
         stage.show();
+
+        //this if statement is to check if the window is showned not as a dialog
+        //if it is WINDOW_MODAL, the main menu or log in module will close from the screen
+        return stage;
     }
 }

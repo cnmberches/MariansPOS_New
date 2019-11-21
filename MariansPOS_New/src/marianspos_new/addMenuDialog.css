@@ -8,3 +8,27 @@
     -fx-background-color: rgba(250,208,44, .4);
     -fx-text-fill: rgba(0,0,0,.4);
 }
+
+.addMenuBtn
+{
+    -fx-background-color: #333652;
+    -fx-background-radius: 0;
+    -fx-text-fill: #fff;
+}
+
+.addMenuBtn:hover
+{
+    -fx-background-color: rgba(51,54,82, .2);
+    -fx-text-fill: rgba(255,255,255,.8);
+}
+
+.combo-box-base {
+    -fx-background-color: #fff,  #616161, #fff, #fff;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-text-fill: #000;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
+}

@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +21,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -26,9 +32,35 @@ import javafx.stage.WindowEvent;
 public class SignInModuleController implements Initializable
 {
     @FXML
+    private Button signInBtn;
+    @FXML
     private TextField username_tf;
     @FXML
     private PasswordField password_tf;
+    
+    @FXML
+    private void keyCapture(KeyEvent e)
+    {
+        final KeyCombination keyComb = new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_ANY);
+        if(e.getCode().equals(KeyCode.ENTER))
+        {
+            signInBtn.fire();
+        }
+        else if(keyComb.match(e))
+        {
+            try {
+                Global.isForAdminModule = true;
+                if(Global.isPasswordCorrect)
+                {
+                    openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
+                    Global.isPasswordCorrect = false;
+                }
+                e.consume(); // <-- stops passing the event to next node
+            } catch (IOException ex) {
+                Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
     @FXML
     private void signInAction(ActionEvent event)
@@ -36,7 +68,7 @@ public class SignInModuleController implements Initializable
         //this first gets the username and password input from the user
         String username = username_tf.getText(), password = password_tf.getText();
         //this query is for checking if the username exist in the table
-        String queryCheck = "SELECT * from accounts_tbl WHERE username = ?";
+        String queryCheck = "SELECT * from accounts_tbl WHERE username = ? AND role = 'employee'";
         try
         {
             //connect to the database
@@ -63,56 +95,29 @@ public class SignInModuleController implements Initializable
                     //this is for closing the window
                     stage.close();
                     
-                    if("admin".equals(Global.role))
+
+                    Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
+                    posModule.setOnCloseRequest(new EventHandler<WindowEvent>()
                     {
-                        Stage main = openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Dashboard");
-                        main.setOnCloseRequest(new EventHandler<WindowEvent>()
+                        @Override
+                        public void handle(WindowEvent event)
                         {
-                            @Override
-                            public void handle(WindowEvent event)
+                            Platform.runLater(new Runnable()
                             {
-                                Platform.runLater(new Runnable()
+                                @Override
+                                public void run()
                                 {
-                                    @Override
-                                    public void run()
-                                    {
-                                        try
-                                        { 
-                                            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
-                                        }
-                                        catch (IOException ex)
-                                        {
-                                        }
+                                    try
+                                    { 
+                                        openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
                                     }
-                                });
-                            }
-                        });
-                    }
-                    else
-                    {
-                        Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
-                        posModule.setOnCloseRequest(new EventHandler<WindowEvent>()
-                        {
-                            @Override
-                            public void handle(WindowEvent event)
-                            {
-                                Platform.runLater(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
+                                    catch (IOException ex)
                                     {
-                                        try
-                                        { 
-                                            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
-                                        }
-                                        catch (IOException ex)
-                                        {
-                                        }
                                     }
-                                });
-                            }
-                        });  
-                    }
+                                }
+                            });
+                        }
+                    });  
                 }
                 else
                 {
@@ -155,7 +160,27 @@ public class SignInModuleController implements Initializable
         //this makes sure that size is equal to the size of window based on the code
         stage.sizeToScene();
         //this puts the fxml file design in the window
-        stage.setScene(new Scene(root));  
+        Scene scene = new Scene(root);
+        if(fxmlFile.equalsIgnoreCase("SignInModule.fxml"))
+        {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_ANY);
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                    try {
+                        Global.isForAdminModule = true;
+                        Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
+                        ke.consume(); // <-- stops passing the event to next node
+                    } catch (IOException ex) {
+                        Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
+                    }
+                    System.out.println("dd");
+                }
+            }
+        });
+        }
+        stage.setScene(scene);   
         //this makes the window viewable to the user
         stage.show();
 
@@ -169,7 +194,7 @@ public class SignInModuleController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
+        
     }    
     @FXML
     private void signUp(ActionEvent event) throws IOException

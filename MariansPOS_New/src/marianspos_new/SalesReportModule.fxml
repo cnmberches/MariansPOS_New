@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="754.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.SalesReportModuleController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="779.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.SalesReportModuleController">
     <stylesheets>
         <URL value="@salesreportmodule.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="transaction_tbl" layoutX="80.0" layoutY="48.0" prefHeight="426.0" prefWidth="595.0" />
+      <TableView fx:id="transaction_tbl" layoutX="47.0" layoutY="102.0" prefHeight="426.0" prefWidth="685.0" />
+      <DatePicker id="datePicker" fx:id="fromDatePicker" layoutX="94.0" layoutY="46.0" onAction="#load" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;" styleClass="datePicker" />
+      <Label layoutX="47.0" layoutY="47.0" text="From">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
+      <DatePicker id="datePicker" fx:id="toDatePicker" layoutX="328.0" layoutY="46.0" onAction="#load" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;" styleClass="datePicker" />
+      <Label layoutX="301.0" layoutY="47.0" text="TO">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="533.0" layoutY="48.0" text="Sales:">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="salesTotal_lbl" layoutX="590.0" layoutY="48.0" text="Sales">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

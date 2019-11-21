@@ -1,10 +1,39 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Nov 21, 2019, 2:33:28 AM
-    Author     : user
-*/
+.admin_rb .radio 
+{
+    -fx-background-color:  #fff;
+    -fx-border-color: #616161;
+    -fx-border-radius: 100px;
+}
 
+.employee_rb .radio
+{
+    -fx-background-color:  #fff;
+    -fx-border-color: #616161;
+    -fx-border-radius: 100px;
+}
+
+.employee_rb:selected .radio .dot
+{
+    -fx-background-color: #333652;
+    -fx-background-insets: 0;
+}
+
+.admin_rb:selected .radio .dot
+{
+    -fx-background-color: #333652;
+    -fx-background-insets: 0;
+}
+
+.register_Btn
+{
+    -fx-background-color:  #333652;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+.register_Btn:hover
+{
+    -fx-background-color:  rgba(51,54,82, .2);
+    -fx-text-fill: rgba(255,255,255, .2);
+    -fx-background-radius: 0;
+}
