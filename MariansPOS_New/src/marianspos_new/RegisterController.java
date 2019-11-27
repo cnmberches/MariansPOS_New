@@ -308,6 +308,7 @@ public class RegisterController implements Initializable {
                     LocalDate hired = LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[0]), Integer.parseInt(date[1]));
                     datePicker.setValue(hired);
                 }
+                Global.isForAddAccount = false;
             } catch (SQLException ex) {
                 //this prints the error message if it encounters problem
                 System.out.println(ex.getMessage());

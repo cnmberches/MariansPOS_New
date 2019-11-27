@@ -1,6 +1,7 @@
 package marianspos_new;
 
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Global
@@ -19,7 +20,8 @@ public class Global
     static boolean isVoid = false;
     static boolean isForAdminModule = false;
     static boolean isPasswordCorrect = false;
-    static ObservableList<ObservableList> orders;
+    static ObservableList<ObservableList> orders = FXCollections.observableArrayList();
     static int transaction_id;
+    static int orderNumber = 0;
 }
 

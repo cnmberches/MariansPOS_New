@@ -62,6 +62,7 @@ public class POSModuleController implements Initializable {
     private ObservableList<ObservableList> tbl_data;
     private ObservableList<ObservableList> orders_data;
     private int total = 0;
+    private int orderNumber = 0;
     
     @FXML
     private AnchorPane anchorPane;
@@ -73,60 +74,19 @@ public class POSModuleController implements Initializable {
     private Button cancel_btn, add_btn;
     
     @FXML
-    private ToggleButton discount_tb; 
-    
-    @FXML
-    private ToggleGroup status_tg;
-    
-    @FXML
-    private RadioButton senior_rb, pwd_rb, dineIn_rb, takeOut_rb;
-    
-    @FXML
-    private Label discount_lbl, tax_lbl, total_lbl, grandTotal_lbl, change_lbl;
-    
-    @FXML
-    private TextField amountTendered_tf;
-    
-    @FXML
     private TextField quantity_tf,search_tf;
     
     @FXML
-    private Label name_lbl, description_lbl, status_lbl, price_lbl,cashierName_lbl, userID_lbl;
-    
-    @FXML
-    private Button decrease_btn, increase_btn, confirm_order, sinangagSpecial_btn, barkadaDeals_btn, extraOrders_btn, riceMeals_btn,
-            specialties_btn, pancitBilao_btn, vegetables_btn, sandwich_btn, pulutan_btn, dessert_btn, merienda_btn, soup_btn, main_btn,
-            all_btn, drinks_btn;
+    private Label name_lbl, description_lbl, price_lbl,cashierName_lbl, userID_lbl;
     
     @FXML
     private TableView menu_tbl;
     
     @FXML
     private TableView orders_tbl;
-
-    @FXML
-    private void radioButtons(ActionEvent e)
-    {
-        //cheks if the discount button is selected
-        if(pwd_rb.isSelected() || senior_rb.isSelected())
-        {
-            float discount = total * .20f;
-            //this willl set the value of discount
-            discount_lbl.setText(String.valueOf(discount));
-            //automatically minus the discount to total
-            grandTotal_lbl.setText(String.valueOf(total-discount));
-        }
-        else
-        {
-            //set the discount to 0 and grand total to the original value
-            discount_lbl.setText("00.00");
-            grandTotal_lbl.setText(String.valueOf(total));
-        }
-    }
     
-    
-    static void printOperation(TextArea textDocument) {
-        Text extractedText = new Text(textDocument.textProperty().get());
+    static void printOperation(String text) {
+        Text extractedText = new Text(text);
         extractedText.prefWidth(450);
         extractedText.setStyle("-fx-font-size: 8; -fx-font-family: monospace;");
 
@@ -159,39 +119,7 @@ public class POSModuleController implements Initializable {
         catch(Exception e)
         {
             
-        }
-        
-        
-    }
-    
-    @FXML
-    private void discount_toggle(ActionEvent e)
-    {
-        if(discount_tb.isSelected())
-        {
-            senior_rb.setDisable(false);
-            pwd_rb.setDisable(false);
-        }
-        else
-        {
-            senior_rb.setDisable(true);
-            pwd_rb.setDisable(true);
-            pwd_rb.setSelected(false);
-            senior_rb.setSelected(false);
-            discount_lbl.setText("0");
-            grandTotal_lbl.setText(String.valueOf(total));
-        }
-    }
-    
-    @FXML
-    private void amountKeyType(KeyEvent e)
-    {
-        if(!amountTendered_tf.getText().isEmpty())
-        {
-            double amountTendered = Double.valueOf(amountTendered_tf.getText());
-            double change = Math.round((amountTendered - Double.valueOf(grandTotal_lbl.getText()))* 100) / 100.0f;
-            change_lbl.setText(String.valueOf(change));
-        }    
+        } 
     }
     
     @FXML
@@ -214,6 +142,34 @@ public class POSModuleController implements Initializable {
     }
     
     @FXML
+    public void addOrders(ActionEvent e)
+    {
+        if(!orders_tbl.getItems().isEmpty())
+        {
+            orderNumber++;
+            String orders = "";
+            ObservableList<ObservableList> order1 = orders_tbl.getItems();
+            for(ObservableList<ObservableList> order: order1)
+            {
+                String arrOrder[] = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').split(", ");
+                orders = arrOrder[2] + " " + arrOrder[0] + "|";
+                Global.orders.add(order);
+            }
+            
+            Global.orderNumber = orderNumber;
+            Global.totalCost = total;
+            ObservableList<String> ordNum = FXCollections.observableArrayList();
+            ordNum.add(String.valueOf(orderNumber));
+            ordNum.add(orders);
+            POSSecondModuleController.preparing_data.add(ordNum);
+            
+            printOperation("Order No: " + orderNumber + "/n" + orders + "\n\n\n\n-");
+            orders_data.clear();
+            total = 0;
+        }
+    }
+    
+    @FXML
     public void voidItem(MouseEvent event) throws IOException
     {
         if(!orders_data.isEmpty())
@@ -225,8 +181,6 @@ public class POSModuleController implements Initializable {
                 allOrders = orders_tbl.getItems();
                 selectedOrder = orders_tbl.getSelectionModel().getSelectedItems();
                 total -= Integer.parseInt(selectedOrder.get(0).get(3).toString());
-                
-                changeTotal();
                 
                 selectedOrder.forEach(allOrders::remove);
                 Global.isVoid = false;
@@ -245,8 +199,6 @@ public class POSModuleController implements Initializable {
         int cost = Integer.valueOf(quantity) * Integer.valueOf(price_lbl.getText());
         total += cost;
         
-        changeTotal();
-        
         row.add(String.valueOf(cost));
         if(cost > 0)
         {
@@ -256,7 +208,6 @@ public class POSModuleController implements Initializable {
         name_lbl.setText("Menu Name");
         price_lbl.setText("0");
         description_lbl.setText("Menu Description");
-        total_lbl.setText(String.valueOf(total));
     }
     
     @FXML
@@ -279,125 +230,6 @@ public class POSModuleController implements Initializable {
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
-        }
-    }
-    
-    @FXML
-    private void confirm(ActionEvent e) throws IOException, InterruptedException
-    {
-        if(!amountTendered_tf.getText().isEmpty() && Integer.parseInt(amountTendered_tf.getText()) != 0 && Double.parseDouble(change_lbl.getText()) >= 0)
-        {
-            Calendar now = Calendar.getInstance();
-            DBConnector db = new DBConnector();
-            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
-            String status = "";
-            if(status_tg.getSelectedToggle().equals(dineIn_rb))
-            {
-                status = "Dine In";
-            }
-            else
-            {
-                status = "Take Out";
-            }
-            try
-            {
-                TextArea receiptLayout = new TextArea();
-                receiptLayout.setPrefWidth(450);
-                receiptLayout.setStyle("-fx-font-size: 11; -fx-font-family: monospace;");
-                receiptLayout.appendText("Marian's Pares, Bulalo, atbp.\n" +
-			"A Mabini St. Brgy Guinhawa,\nCity of Malolos Bulacan.\n" + 
-			"Landline: (044) 305 0237 \nGlobe: 0956 277 8137\n" +
-			date + "\n\n");
-                
-                //first is to get a connection and create a statement
-                Statement st = db.getConnection().createStatement();
-                //this query is for inserting the values name, username, password, role, and date_hired
-                //it uses "?" in the values for preparedstatement
-                String sql = "INSERT INTO transactions_tbl(accounts_id, orders, date_ordered, grand_total) "
-                            + "VALUES(?, ?, ?, ?)";
-                String orders = "";
-                String receiptOrders = "";
-                ObservableList<ObservableList> order1 = orders_tbl.getItems();
-                for(ObservableList<ObservableList> order: order1)
-                {
-                    String arrOrder[] = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').split(", ");
-                    orders = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').replaceAll(",", "")
-                            + status + "\n";
-                    receiptOrders += String.format("%-30s\n", arrOrder[0].trim());
-                    receiptOrders += String.format("%-5s * %-10s Total:%-6s\n\n", arrOrder[1].trim(), arrOrder[2].trim(), arrOrder[3].trim());
-                }
-                
-                //first is to get the connection then prepare the statement query
-                //name.price,quantity,cost
-                PreparedStatement ps = db.getConnection().prepareStatement(sql);
-                //this inserts the data by index and its corresponding value
-                
-                ps.setString(1, Global.account_id);
-                ps.setString(2, orders);
-                ps.setString(3, date);
-                ps.setString(4, grandTotal_lbl.getText());
-                //this function is for commanding the system to do the query which inserts a new row/data in database
-                ps.executeUpdate();
-
-                ResultSet rs2 = db.getConnection().createStatement().executeQuery("SELECT transactions_id FROM transactions_tbl");
-
-                int id = 0;
-                while(rs2.next())
-                {
-                    id = rs2.getInt("transactions_id");
-                }
-                
-                db.getConnection().close();
-                
-                receiptLayout.appendText("Transaction ID: " +  id + "\n");
-                receiptLayout.appendText("========================================================\n");
-                receiptLayout.appendText("\n");
-                receiptLayout.appendText(receiptOrders);
-                receiptLayout.appendText(String.format("%-11s:%-6s\n","Tax" ,tax_lbl.getText()));
-                receiptLayout.appendText(String.format("%-11s:%-6s\n", "Discount" ,discount_lbl.getText()));
-                receiptLayout.appendText(String.format("%-11s:%-6s\n", "Grand Total" ,grandTotal_lbl.getText()));
-                receiptLayout.appendText(String.format("%-11s:%-6s\n","Cash" ,amountTendered_tf.getText()));
-                receiptLayout.appendText(String.format("%-11s:%-6s\n\n\n\n", "Change" ,change_lbl.getText()));
-                receiptLayout.appendText("-");
-                //this function is use to get the source file of the action event
-                final Node source = (Node) e.getSource();
-                //this gets the sctive stage or window of the file
-                final Stage stage = (Stage) source.getScene().getWindow();
-                anchorPane.getChildren().add(receiptLayout);
-                printOperation(receiptLayout);
-                Thread.sleep(5000);
-                printOperation(receiptLayout);
-                //this is for closing the window
-                stage.close();
-                
-                Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
-                posModule.show();
-                posModule.setOnCloseRequest(new EventHandler<WindowEvent>()
-                {
-                    @Override
-                    public void handle(WindowEvent event)
-                    {
-                        Platform.runLater(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                try
-                                { 
-                                    openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System").show();
-                                }
-                                catch (IOException ex)
-                                {
-                                }
-                            }
-                        });
-                    }
-                });
-
-            } catch (SQLException ex) {
-                //this prints the error message if it encounters problem
-                ex.printStackTrace();
-            }  
         }
     }
     
@@ -478,8 +310,6 @@ public class POSModuleController implements Initializable {
             
             category_cb.setItems(options);
             total = 0;
-            
-            changeTotal();
         }
         catch(Exception e)
         {
@@ -646,29 +476,5 @@ public class POSModuleController implements Initializable {
         //this if statement is to check if the window is showned not as a dialog
         //if it is WINDOW_MODAL, the main menu or log in module will close from the screen
         return stage;
-    }
-     
-    void changeTotal()
-    {
-        float tax, dc;
-        if(discount_tb.isSelected())
-        {
-            tax = Math.round((total  * .12)* 100) / 100.0f;
-            dc = Math.round((total  * .20)* 100) / 100.0f;
-            total_lbl.setText(String.valueOf((float)total-dc));
-            grandTotal_lbl.setText(String.valueOf(total));
-            tax_lbl.setText(String.valueOf(tax));
-            discount_lbl.setText(String.valueOf(dc));
-            amountTendered_tf.setText("0");
-        }
-        else
-        {
-            tax = Math.round((total  * .12)* 100) / 100.0f;
-            total_lbl.setText(String.valueOf(total));
-            grandTotal_lbl.setText(String.valueOf(total));
-            tax_lbl.setText(String.valueOf(tax));
-            amountTendered_tf.setText("0");
-        }
-        
     }
 }

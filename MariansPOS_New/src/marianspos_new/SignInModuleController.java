@@ -87,8 +87,13 @@ public class SignInModuleController implements Initializable
                     Global.role = resultSet.getString("role");
                     Global.account_id = resultSet.getString("accounts_id");
                     Global.username = resultSet.getString("username");
-
+                    
+                    Stage secondModule = openModule("POSSecondModule.fxml", Modality.WINDOW_MODAL, "Kitchen Screen");
                     Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
+                    if(!posModule.isShowing())
+                    {
+                        secondModule.close();
+                    }
                     posModule.setOnCloseRequest(new EventHandler<WindowEvent>()
                     {
                         @Override
@@ -101,6 +106,7 @@ public class SignInModuleController implements Initializable
                                 {
                                     try
                                     { 
+                                        secondModule.close();
                                         openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
                                     }
                                     catch (IOException ex)

@@ -46,7 +46,7 @@
       </Button>
       <Pane layoutX="67.0" layoutY="140.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
          <children>
-            <Button alignment="CENTER" layoutX="11.0" layoutY="182.0" mnemonicParsing="false" onAction="#menuReport" prefHeight="37.0" prefWidth="186.0" styleClass="menuReportBtn" text="MENU REPORT" textAlignment="CENTER" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="11.0" layoutY="182.0" mnemonicParsing="false" onAction="#menuReport" prefHeight="37.0" prefWidth="186.0" styleClass="menuReportBtn" text="FOOD MANAGEMENT" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
