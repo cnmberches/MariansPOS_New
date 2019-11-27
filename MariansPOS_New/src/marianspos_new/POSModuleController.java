@@ -218,7 +218,7 @@ public class POSModuleController implements Initializable {
     {
         if(!orders_data.isEmpty())
         {
-            openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Void");
+            openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Void").showAndWait();
             if(Global.isVoid)
             {
                 ObservableList<ObservableList> selectedOrder, allOrders;
@@ -275,7 +275,7 @@ public class POSModuleController implements Initializable {
         alert.showAndWait();
         if(alert.getResult().equals(ButtonType.YES))
         {
-            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
+            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System").show();
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
@@ -289,7 +289,7 @@ public class POSModuleController implements Initializable {
         {
             Calendar now = Calendar.getInstance();
             DBConnector db = new DBConnector();
-            String date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(now.getTime());
+            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
             String status = "";
             if(status_tg.getSelectedToggle().equals(dineIn_rb))
             {
@@ -371,6 +371,7 @@ public class POSModuleController implements Initializable {
                 stage.close();
                 
                 Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
+                posModule.show();
                 posModule.setOnCloseRequest(new EventHandler<WindowEvent>()
                 {
                     @Override
@@ -383,7 +384,7 @@ public class POSModuleController implements Initializable {
                             {
                                 try
                                 { 
-                                    openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
+                                    openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System").show();
                                 }
                                 catch (IOException ex)
                                 {
@@ -627,7 +628,7 @@ public class POSModuleController implements Initializable {
                     try {
                         Global.isForAdminModule = true;
                         Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
-                        
+                        x.show();
                         ke.consume(); // <-- stops passing the event to next node
                     } catch (IOException ex) {
                         Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
@@ -640,7 +641,7 @@ public class POSModuleController implements Initializable {
         }
         stage.setScene(scene);  
         //this makes the window viewable to the user
-        stage.show();
+        
 
         //this if statement is to check if the window is showned not as a dialog
         //if it is WINDOW_MODAL, the main menu or log in module will close from the screen

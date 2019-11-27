@@ -30,7 +30,10 @@ public class MariansPOS_New extends Application
                     try {
                         Global.isForAdminModule = true;
                         Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
-                        stage.close();
+                        if(!Global.isForAdminModule)
+                        {
+                            stage.close();
+                        }
                         ke.consume(); // <-- stops passing the event to next node
                     } catch (IOException ex) {
                         Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);

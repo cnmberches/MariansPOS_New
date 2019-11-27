@@ -1,7 +1,6 @@
 package marianspos_new;
 
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -12,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,9 +27,10 @@ public class SalesReportModuleController implements Initializable {
     private DatePicker fromDatePicker, toDatePicker;
     @FXML
     private Label salesTotal_lbl;
-    
     @FXML
     private TableView transaction_tbl;
+    @FXML
+    private ComboBox shift_cb;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,6 +74,9 @@ public class SalesReportModuleController implements Initializable {
             transaction_tbl.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY);
             
             salesTotal_lbl.setText(String.valueOf(sales));
+            
+            ObservableList<String> options = FXCollections.observableArrayList("AM", "PM", "ALL");
+            shift_cb.setItems(options);
         }
         catch(SQLException e)
         {
@@ -83,7 +87,7 @@ public class SalesReportModuleController implements Initializable {
     @FXML 
     private void load(ActionEvent e)
     {
-        if(!fromDatePicker.getEditor().getText().isEmpty() && !toDatePicker.getEditor().getText().isEmpty())
+        if(!fromDatePicker.getEditor().getText().isEmpty() && !toDatePicker.getEditor().getText().isEmpty() && !shift_cb.getSelectionModel().isSelected(-1))
         {
             sales = 0;
             String [] fromDateArr = fromDatePicker.getEditor().getText().split("/");
@@ -96,7 +100,21 @@ public class SalesReportModuleController implements Initializable {
             {
                 tbl_data = FXCollections.observableArrayList();
                 transaction_tbl.getColumns().clear();
-                String SQL2 = "SELECT * from transactions_tbl where date_ordered BETWEEN '"+ fromDate + "' AND '" + toDate +"'";
+                String SQL2;
+
+                if(shift_cb.getValue().toString().equalsIgnoreCase("am"))
+                {
+                    SQL2 = "SELECT * from transactions_tbl where date_ordered BETWEEN '"+ fromDate + " 6:00:00' AND '" + toDate +" 17:59:59'";
+                }
+                else if(shift_cb.getValue().toString().equalsIgnoreCase("pm"))
+                {
+                   SQL2 = "SELECT * from transactions_tbl where date_ordered BETWEEN '"+ fromDate + " 18:00:00' AND '" + toDate +" 05:59:59'"; 
+                }
+                else
+                {
+                   SQL2 ="SELECT * from transactions_tbl where date_ordered BETWEEN '"+ fromDate + "' AND '" + toDate +"'";
+                }
+
                 System.out.println(SQL2);
                 //ResultSet
                 ResultSet rs2 = con.getConnection().createStatement().executeQuery(SQL2);

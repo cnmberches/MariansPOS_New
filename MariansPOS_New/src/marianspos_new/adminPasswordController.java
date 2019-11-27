@@ -49,37 +49,7 @@ public class adminPasswordController implements Initializable {
                 if(Global.isPasswordCorrect)
                 {
                     try {
-                        System.out.println("goiooo");
-                        Stage main = openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Dashboard");
-                        main.setOnCloseRequest(new EventHandler<WindowEvent>()
-                        {
-                            @Override
-                            public void handle(WindowEvent event)
-                            {
-                                Platform.runLater(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        try
-                                        { 
-                                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?" , ButtonType.NO, ButtonType.YES);
-                                            alert.setTitle("Log out user?");
-                                            //the show and wait functions waits the user to click between the buttons ok cancel
-                                            alert.showAndWait();
-                                            if(alert.getResult().equals(ButtonType.YES))
-                                            {
-                                                main.close();
-                                                openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
-                                            }
-                                        }
-                                        catch (IOException ex)
-                                        {
-                                        }
-                                    }
-                                });
-                            }
-                        });
+                        openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Dashboard");
                         Global.isPasswordCorrect = false;
                     } catch (IOException ex) {
                         Logger.getLogger(adminPasswordController.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,7 +134,42 @@ public class adminPasswordController implements Initializable {
         stage.sizeToScene();
         //this puts the fxml file design in the window
         stage.setScene(new Scene(root));  
-        //this if statement is to check if the window is showned not as a dialog
+        if(fxmlFile.equalsIgnoreCase("MainMenuModule.fxml"))
+        {
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+            {
+                @Override
+                public void handle(WindowEvent event)
+                {
+                    Platform.runLater(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            try
+                            { 
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?" , ButtonType.NO, ButtonType.YES);
+                                alert.setTitle("Log out user?");
+                                //the show and wait functions waits the user to click between the buttons ok cancel
+                                alert.showAndWait();
+                                if(alert.getResult().equals(ButtonType.YES))
+                                {
+                                    stage.close();
+                                    openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System");
+                                }
+                                else
+                                {
+                                    openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Dashboard");
+                                }
+                            }
+                            catch (IOException ex)
+                            {
+                            }
+                        }
+                    });
+                }
+            });
+        }
         //if it is WINDOW_MODAL, the main menu or log in module will close from the screen
         stage.show();
         return stage;

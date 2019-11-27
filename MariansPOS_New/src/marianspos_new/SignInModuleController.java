@@ -82,19 +82,11 @@ public class SignInModuleController implements Initializable
                 // if the username exist, check if the username and password is correct
                 if(username.equals(resultSet.getString("username")) && password.equals(resultSet.getString("password")))
                 {
-                    //this gloabl variables is for the data needed to be displayed in the pos module or dashborad module
+                    //this global variables is for the data needed to be displayed in the pos module or dashborad module
                     Global.name = resultSet.getString("name");
                     Global.role = resultSet.getString("role");
                     Global.account_id = resultSet.getString("accounts_id");
                     Global.username = resultSet.getString("username");
-                    
-                    //this function is use to get the source file of the action event
-                    final Node source = (Node) event.getSource();
-                    //this gets the sctive stage or window of the file
-                    final Stage stage = (Stage) source.getScene().getWindow();
-                    //this is for closing the window
-                    stage.close();
-                    
 
                     Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
                     posModule.setOnCloseRequest(new EventHandler<WindowEvent>()
@@ -117,7 +109,13 @@ public class SignInModuleController implements Initializable
                                 }
                             });
                         }
-                    });  
+                    }); 
+                    //this function is use to get the source file of the action event
+                    final Node source = (Node) event.getSource();
+                    //this gets the sctive stage or window of the file
+                    final Stage stage = (Stage) source.getScene().getWindow();
+                    //this is for closing the window
+                    stage.close();
                 }
                 else
                 {

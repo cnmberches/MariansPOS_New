@@ -34,12 +34,12 @@
                   <Font name="Poppins Regular" size="14.0" />
                </font>
             </PasswordField>
-            <Button fx:id="registerBtn" layoutX="61.0" layoutY="261.0" mnemonicParsing="false" onAction="#signUp" prefHeight="32.0" prefWidth="105.0" styleClass="registerBtn" stylesheets="@SignInModule.css" text="REGISTER" textFill="#757575">
+            <Button fx:id="registerBtn" layoutX="61.0" layoutY="261.0" mnemonicParsing="false" onAction="#signUp" prefHeight="32.0" prefWidth="105.0" styleClass="registerBtn" text="REGISTER" textFill="#757575">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="signInBtn" layoutX="178.0" layoutY="261.0" mnemonicParsing="false" onAction="#signInAction" prefHeight="32.0" prefWidth="105.0" styleClass="signInBtn" stylesheets="@SignInModule.css" text="SIGN IN" textFill="WHITE">
+            <Button fx:id="signInBtn" layoutX="178.0" layoutY="261.0" mnemonicParsing="false" onAction="#signInAction" prefHeight="32.0" prefWidth="105.0" styleClass="signInBtn" text="SIGN IN" textFill="WHITE">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>

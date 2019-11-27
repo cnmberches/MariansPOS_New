@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
@@ -25,15 +26,16 @@
             <Font name="Poppins Regular" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="533.0" layoutY="48.0" text="Sales:">
+      <Label layoutX="633.0" layoutY="48.0" text="Sales:">
          <font>
             <Font name="Poppins Regular" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="salesTotal_lbl" layoutX="590.0" layoutY="48.0" text="Sales">
+      <Label fx:id="salesTotal_lbl" layoutX="690.0" layoutY="48.0" text="Sales">
          <font>
             <Font name="Poppins Regular" size="16.0" />
          </font>
       </Label>
+      <ComboBox fx:id="shift_cb" layoutX="515.0" layoutY="46.0" onAction="#load" prefHeight="24.0" prefWidth="99.0" promptText="Shift" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="category_cb" />
    </children>
 </AnchorPane>
