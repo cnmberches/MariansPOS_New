@@ -31,6 +31,7 @@ import javafx.stage.WindowEvent;
 
 public class SignInModuleController implements Initializable
 {
+    static Stage secondModule;
     @FXML
     private Button signInBtn;
     @FXML
@@ -88,7 +89,7 @@ public class SignInModuleController implements Initializable
                     Global.account_id = resultSet.getString("accounts_id");
                     Global.username = resultSet.getString("username");
                     
-                    Stage secondModule = openModule("POSSecondModule.fxml", Modality.WINDOW_MODAL, "Kitchen Screen");
+                    secondModule = openModule("POSSecondModule.fxml", Modality.WINDOW_MODAL, "Kitchen Screen");
                     Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");
                     if(!posModule.isShowing())
                     {

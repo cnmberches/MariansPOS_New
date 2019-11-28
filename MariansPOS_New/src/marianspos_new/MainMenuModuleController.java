@@ -91,7 +91,7 @@ public class MainMenuModuleController implements Initializable {
     
     @FXML
     private void menuReport(ActionEvent event) throws IOException {
-        Stage open = openModule("MenuReportModule.fxml", Modality.WINDOW_MODAL, "Inventory");open.setOnCloseRequest(new EventHandler<WindowEvent>()
+        Stage open = openModule("MenuReportModule.fxml", Modality.WINDOW_MODAL, "Food Management");open.setOnCloseRequest(new EventHandler<WindowEvent>()
         {
             @Override
             public void handle(WindowEvent event)

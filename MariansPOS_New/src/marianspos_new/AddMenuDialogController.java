@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -16,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.stage.Stage;
 
 public class AddMenuDialogController implements Initializable {
     private final DBConnector con = new DBConnector();
@@ -91,6 +93,12 @@ public class AddMenuDialogController implements Initializable {
                 alert1.setTitle("Added");
                 //the show and wait functions waits the user to click between the buttons ok cancel
                 alert1.showAndWait();
+                //this function is use to get the source file of the action event
+                final Node source = (Node) e.getSource();
+                //this gets the sctive stage or window of the file
+                final Stage stage = (Stage) source.getScene().getWindow();
+                //this is for closing the window
+                stage.close();
             }
         }
         else
@@ -114,7 +122,7 @@ public class AddMenuDialogController implements Initializable {
                     ps.setString(3, price_tf.getText());
                     ps.setString(4, description_ta.getText());;
                     ps.setString(5, available);
-                    ps.setInt(7, Integer.parseInt(Global.inventoryClickedItems[0]));
+                    ps.setInt(6, Integer.parseInt(Global.inventoryClickedItems[0]));
                     //execute or start aupdating the database
                     ps.execute();
                     con.getConnection().close();
@@ -123,6 +131,12 @@ public class AddMenuDialogController implements Initializable {
                     alert1.setTitle("Updated");
                     //the show and wait functions waits the user to click between the buttons ok cancel
                     alert1.showAndWait();
+                    //this function is use to get the source file of the action event
+                    final Node source = (Node) e.getSource();
+                    //this gets the sctive stage or window of the file
+                    final Stage stage = (Stage) source.getScene().getWindow();
+                    //this is for closing the window
+                    stage.close();
                 }
                 catch(NumberFormatException | SQLException ex)
                 {

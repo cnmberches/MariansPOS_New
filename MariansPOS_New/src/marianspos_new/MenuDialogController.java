@@ -188,6 +188,8 @@ public class MenuDialogController implements Initializable {
                 receiptLayout.appendText("Remarks: ________________________\n\n\n\n");
                 receiptLayout.appendText("-");
                 
+                printOperation(receiptLayout);
+                
             } catch (SQLException ex) {
                 //this prints the error message if it encounters problem
                 ex.printStackTrace();

@@ -82,7 +82,8 @@ public class MenuReportModuleController implements Initializable {
             //this puts the fxml file design in the window
             stage.setScene(new Scene(root1));  
             //this makes the window viewable to the user
-            stage.show();
+            stage.showAndWait();
+            load();
         }
     }
     
@@ -109,15 +110,23 @@ public class MenuReportModuleController implements Initializable {
         //this puts the fxml file design in the window
         stage.setScene(new Scene(root1));  
         //this makes the window viewable to the user
-        stage.show();
+        stage.showAndWait();
+        load();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        load();
+    }    
+    
+    private void load()
+    {
         //connect to the databse
         DBConnector con = new DBConnector();
         try
         {
+            menu_tbl.getColumns().clear();
+            menu_tbl.getItems().clear();
             //this function will add all the data and columns to the table
             String SQL1 = "SELECT category_name from category_tbl";
             ResultSet rs1 = con.getConnection().createStatement().executeQuery(SQL1);
@@ -206,5 +215,5 @@ public class MenuReportModuleController implements Initializable {
         catch(SQLException e)
         {
         }
-    }    
+    }
 }
