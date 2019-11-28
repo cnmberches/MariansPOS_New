@@ -138,11 +138,13 @@ public class POSModuleController implements Initializable {
         {
             orderNumber++;
             String orders = "";
+            String receiptOrders = "";
             ObservableList<ObservableList> order1 = orders_tbl.getItems();
             for(ObservableList<ObservableList> order: order1)
             {
                 String arrOrder[] = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').split(", ");
                 orders += arrOrder[2] + " " + arrOrder[0] + " | ";
+                receiptOrders += arrOrder[2] + " " + arrOrder[0] + " | \n";
                 Global.orders.add(order);
             }
             
@@ -153,7 +155,7 @@ public class POSModuleController implements Initializable {
             ordNum.add(orders);
             POSSecondModuleController.preparing_data.add(ordNum);
             
-            printOperation("Order No: " + orderNumber + "/n" + orders + "\n\n\n\n-");
+            printOperation("Order No: " + orderNumber + "\n" + orders + "\n\n\n\n-");
             orders_data.clear();
             total = 0;
         }
