@@ -24,12 +24,12 @@
                   <Font name="Poppins Medium" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="username_tf" layoutX="61.0" layoutY="135.0" onKeyPressed="#keyCapture" prefHeight="30.0" prefWidth="222.0" promptText="username" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;">
+            <TextField fx:id="username_tf" layoutX="61.0" layoutY="135.0" onKeyPressed="#keyCapture" prefHeight="32.0" prefWidth="222.0" promptText="username" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="password_tf" layoutX="61.0" layoutY="181.0" onKeyPressed="#keyCapture" prefHeight="30.0" prefWidth="222.0" promptText="Password" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #fff; -fx-border-color: #616161;">
+            <PasswordField fx:id="password_tf" layoutX="61.0" layoutY="181.0" onKeyPressed="#keyCapture" prefHeight="32.0" prefWidth="222.0" promptText="Password" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #fff; -fx-border-color: #616161;">
                <font>
                   <Font name="Poppins Regular" size="14.0" />
                </font>
@@ -45,6 +45,11 @@
                </font>
             </Button>
             <Separator layoutX="61.0" layoutY="240.0" prefHeight="0.0" prefWidth="222.0" />
+            <Button id="add_btn" layoutX="245.0" layoutY="183.0" mnemonicParsing="false" onMousePressed="#eye_pressed" onMouseReleased="#eye_released" prefHeight="28.0" prefWidth="38.0" styleClass="eye_btn">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Pane layoutX="344.0" prefHeight="399.0" prefWidth="344.0" style="-fx-background-color: #FAD02C;">

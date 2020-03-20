@@ -38,11 +38,57 @@ public class MainMenuModuleController implements Initializable {
     private Label date_lbl, time_lbl, name_lbl;
     
     @FXML
-    private Button signOut_btn;
-    
-    @FXML
     private void salesReport(ActionEvent event) throws IOException {
         Stage open = openModule("SalesReportModule.fxml", Modality.WINDOW_MODAL, "Sales Report");
+        open.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            @Override
+            public void handle(WindowEvent event)
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        { 
+                            openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Main Menu").setOnCloseRequest(new EventHandler<WindowEvent>()
+                            {
+                                @Override
+                                public void handle(WindowEvent event)
+                                {
+                                    Platform.runLater(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            try
+                                            { 
+                                                openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Main Menu");
+                                            }
+                                            catch (IOException ex)
+                                            {
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        catch (IOException ex)
+                        {
+                        }
+                    }
+                });
+            }
+        });
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void accLogs(ActionEvent event) throws IOException {
+        Stage open = openModule("AccountLogsModule.fxml", Modality.WINDOW_MODAL, "Account Logs");
         open.setOnCloseRequest(new EventHandler<WindowEvent>()
         {
             @Override
@@ -254,7 +300,6 @@ public class MainMenuModuleController implements Initializable {
                         Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
                         ex.printStackTrace();
                     }
-                    System.out.println("dd");
                 }
             }
         });

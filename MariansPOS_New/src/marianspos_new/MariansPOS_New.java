@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MariansPOS_New extends Application
 {
@@ -29,11 +31,30 @@ public class MariansPOS_New extends Application
                 if (keyComb.match(ke)) {
                     try {
                         Global.isForAdminModule = true;
-                        Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
-                        if(!Global.isForAdminModule)
+                        stage.close();
+                        Stage x = openModule("adminPassword.fxml", Modality.WINDOW_MODAL, "Enter password");
+                        x.setOnCloseRequest(new EventHandler<WindowEvent>()
                         {
-                            stage.close();
-                        }
+                            @Override
+                            public void handle(WindowEvent event)
+                            {
+                                Platform.runLater(new Runnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        try
+                                        { 
+                                            openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System").show();
+                                        }
+                                        catch (IOException ex)
+                                        {
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        x.showAndWait();
                         ke.consume(); // <-- stops passing the event to next node
                     } catch (IOException ex) {
                         Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,11 +92,52 @@ public class MariansPOS_New extends Application
         stage.setResizable(false);
         //this makes sure that size is equal to the size of window based on the code
         stage.sizeToScene();
-        //this puts the fxml file design in the window
-        stage.setScene(new Scene(root));  
+        //this puts the fxml file design in the window 
         //this if statement is to check if the window is showned not as a dialog
         //if it is WINDOW_MODAL, the main menu or log in module will close from the screen
-        stage.showAndWait();
+        Scene scene = new Scene(root);
+        if(fxmlFile.equalsIgnoreCase("SignInModule.fxml"))
+        {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                final KeyCombination keyComb = new KeyCodeCombination(KeyCode.X,KeyCombination.CONTROL_ANY);
+                public void handle(KeyEvent ke) {
+                    if (keyComb.match(ke)) {
+                        try {
+                            Global.isForAdminModule = true;
+                            stage.close();
+                            Stage x = openModule("adminPassword.fxml", Modality.WINDOW_MODAL, "Enter password");
+                            x.setOnCloseRequest(new EventHandler<WindowEvent>()
+                            {
+                                @Override
+                                public void handle(WindowEvent event)
+                                {
+                                    Platform.runLater(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            try
+                                            { 
+                                                openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Marian's Point of Sales System").show();
+                                            }
+                                            catch (IOException ex)
+                                            {
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            x.showAndWait();
+                            ke.consume(); // <-- stops passing the event to next node
+                        } catch (IOException ex) {
+                            Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+        stage.setScene(scene); 
         return stage;
     }
     

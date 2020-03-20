@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,11 +52,21 @@ public class adminPasswordController implements Initializable {
                 if(Global.isPasswordCorrect)
                 {
                     try {
+                        DBConnector db = new DBConnector();
+                        Calendar now = Calendar.getInstance();
+                        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
+                        String query = "INSERT INTO logs_tbl(accounts_ID, datetime) values (?,?)";
+                        PreparedStatement ps1 = db.getConnection().prepareStatement(query);
+                        ps1.setInt(1, Integer.parseInt(Global.account_id.trim()));
+                        ps1.setString(2, date);
+                        ps1.executeUpdate();
                         openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Dashboard");
                         Global.isPasswordCorrect = false;
                     } catch (IOException ex) {
                         Logger.getLogger(adminPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                         ex.printStackTrace();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(adminPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 Global.isForAdminModule = false;

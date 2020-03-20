@@ -16,12 +16,14 @@ public class Global
     static ArrayList<Integer> category_id = new ArrayList<>();
     static boolean isForAddMenu = true;
     static boolean isForAddAccount = true;
-    static int totalCost;
+    static ArrayList <Integer> totalCost = new ArrayList();
     static boolean isVoid = false;
     static boolean isForAdminModule = false;
     static boolean isPasswordCorrect = false;
     static ObservableList<ObservableList> orders = FXCollections.observableArrayList();
     static int transaction_id;
-    static int orderNumber = 0;
+    static ArrayList<Integer> orderNumber = new ArrayList();
+    static boolean isConfirmed = false;
+    static int orderNumberIndex = 0;
 }
 

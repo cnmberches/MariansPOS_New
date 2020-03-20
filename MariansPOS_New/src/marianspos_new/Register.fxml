@@ -28,7 +28,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField id="username_textField" fx:id="username_textField" layoutX="25.0" layoutY="146.0" prefHeight="35.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="username_textField" stylesheets="@register.css">
+            <TextField id="username_textField" fx:id="username_textField" layoutX="25.0" layoutY="146.0" prefHeight="38.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="username_textField" stylesheets="@register.css">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <PasswordField id="password_textField" fx:id="password_textField" layoutX="29.0" layoutY="233.0" prefHeight="35.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="password_textField" stylesheets="@register.css">
+            <PasswordField id="password_textField" fx:id="password_textField" layoutX="29.0" layoutY="233.0" prefHeight="38.0" prefWidth="351.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" styleClass="password_textField" stylesheets="@register.css">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -100,6 +100,11 @@
                   <Font name="Poppins Regular" size="16.0" />
                </font>
             </Label>
+            <Button id="register_Btn" fx:id="blockBtn" layoutX="212.0" layoutY="492.0" mnemonicParsing="false" onAction="#blockUser" prefHeight="30.0" prefWidth="168.0" styleClass="register_Btn" text="Block User" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Regular" size="14.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

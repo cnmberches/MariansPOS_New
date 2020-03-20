@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -32,6 +35,8 @@ import javafx.stage.WindowEvent;
 public class SignInModuleController implements Initializable
 {
     static Stage secondModule;
+    private String password;
+    
     @FXML
     private Button signInBtn;
     @FXML
@@ -64,12 +69,27 @@ public class SignInModuleController implements Initializable
     }
     
     @FXML
+    private void eye_pressed (MouseEvent e)
+    {
+        password = password_tf.getText();
+        password_tf.clear();
+        password_tf.setPromptText(password);
+    }
+    
+    @FXML
+    private void eye_released (MouseEvent e)
+    {
+        password_tf.setText(password);
+        password_tf.setPromptText("Password");
+    }
+    
+    @FXML
     private void signInAction(ActionEvent event)
     {
         //this first gets the username and password input from the user
         String username = username_tf.getText(), password = password_tf.getText();
         //this query is for checking if the username exist in the table
-        String queryCheck = "SELECT * from accounts_tbl WHERE username = ? AND role = 'employee'";
+        String queryCheck = "SELECT * from accounts_tbl WHERE username = ? AND role = 'employee' AND isBlocked = 'No'";
         try
         {
             //connect to the database
@@ -88,6 +108,14 @@ public class SignInModuleController implements Initializable
                     Global.role = resultSet.getString("role");
                     Global.account_id = resultSet.getString("accounts_id");
                     Global.username = resultSet.getString("username");
+                    
+                    Calendar now = Calendar.getInstance();
+                    String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
+                    String query = "INSERT INTO logs_tbl(accounts_ID, datetime) values (?,?)";
+                    PreparedStatement ps1 = db.getConnection().prepareStatement(query);
+                    ps1.setInt(1, Integer.parseInt(Global.account_id.trim()));
+                    ps1.setString(2, date);
+                    ps1.executeUpdate();
                     
                     secondModule = openModule("POSSecondModule.fxml", Modality.WINDOW_MODAL, "Kitchen Screen");
                     Stage posModule = openModule("POSModule.fxml", Modality.WINDOW_MODAL, "Point of Sales");

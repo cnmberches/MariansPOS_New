@@ -10,24 +10,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="489.0" prefWidth="788.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.MainMenuModuleController">
+<AnchorPane prefHeight="489.0" prefWidth="955.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.MainMenuModuleController">
     <stylesheets>
         <URL value="@mainMenuModule.css" />
     </stylesheets>
    <children>
-      <Pane prefHeight="73.0" prefWidth="788.0" style="-fx-background-color: #FAD02C;">
+      <Pane prefHeight="73.0" prefWidth="956.0" style="-fx-background-color: #FAD02C;">
          <children>
             <Label layoutX="14.0" layoutY="13.0" prefHeight="31.0" prefWidth="293.0" text="Marian's Pares, Bulalo, atbp." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Poppins Regular" size="18.0" />
                </font>
             </Label>
-            <Label id="date_lbl" fx:id="date_lbl" alignment="CENTER_RIGHT" layoutX="509.0" layoutY="13.0" prefHeight="25.0" prefWidth="265.0" text="Date" wrapText="true">
+            <Label id="date_lbl" fx:id="date_lbl" alignment="CENTER_RIGHT" layoutX="648.0" layoutY="14.0" prefHeight="25.0" prefWidth="265.0" text="Date" wrapText="true">
                <font>
                   <Font name="Poppins Regular" size="18.0" />
                </font>
             </Label>
-            <Label id="time_lbl" fx:id="time_lbl" alignment="CENTER_RIGHT" layoutX="509.0" layoutY="35.0" prefHeight="25.0" prefWidth="265.0" text="Time" wrapText="true">
+            <Label id="time_lbl" fx:id="time_lbl" alignment="CENTER_RIGHT" layoutX="648.0" layoutY="36.0" prefHeight="25.0" prefWidth="265.0" text="Time" wrapText="true">
                <font>
                   <Font name="Poppins Regular" size="18.0" />
                </font>
@@ -39,12 +39,12 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="signOut_btn" layoutX="623.0" layoutY="447.0" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="151.0" styleClass="signOutBtn" text="SIGN OUT">
+      <Button fx:id="signOut_btn" layoutX="780.0" layoutY="427.0" mnemonicParsing="false" onAction="#logOut" prefHeight="28.0" prefWidth="151.0" styleClass="signOutBtn" text="SIGN OUT">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>
       </Button>
-      <Pane layoutX="67.0" layoutY="140.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
+      <Pane layoutX="42.0" layoutY="138.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
          <children>
             <Button alignment="CENTER" layoutX="11.0" layoutY="182.0" mnemonicParsing="false" onAction="#menuReport" prefHeight="37.0" prefWidth="186.0" styleClass="menuReportBtn" text="FOOD MANAGEMENT" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -58,7 +58,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="290.0" layoutY="140.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
+      <Pane layoutX="265.0" layoutY="138.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
          <children>
             <Button alignment="CENTER" layoutX="11.0" layoutY="182.0" mnemonicParsing="false" onAction="#salesReport" prefHeight="37.0" prefWidth="186.0" styleClass="salesReportBtn" text="SALES REPORT" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -72,7 +72,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="513.0" layoutY="140.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
+      <Pane layoutX="488.0" layoutY="138.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
          <children>
             <Button alignment="CENTER" layoutX="11.0" layoutY="182.0" mnemonicParsing="false" onAction="#accountReport" prefHeight="37.0" prefWidth="186.0" styleClass="accMgmBtn" text="ACCOUNT MANAGEMENT" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -82,6 +82,20 @@
             <ImageView fitHeight="133.0" fitWidth="101.0" layoutX="54.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images_and_icons/acc_mgm_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="710.0" layoutY="138.0" prefHeight="233.0" prefWidth="208.0" style="-fx-background-color: #fff; -fx-background-radius: 5,5;">
+         <children>
+            <Button alignment="CENTER" layoutX="11.0" layoutY="182.0" mnemonicParsing="false" onAction="#accLogs" prefHeight="37.0" prefWidth="186.0" styleClass="accLogsBtn" text="ACCOUNT LOGS" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Regular" size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="124.0" fitWidth="124.0" layoutX="45.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images_and_icons/log.png" />
                </image>
             </ImageView>
          </children>

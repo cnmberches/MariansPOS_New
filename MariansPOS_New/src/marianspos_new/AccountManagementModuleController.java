@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -27,10 +29,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 public class AccountManagementModuleController implements Initializable {
-    private String[] columns = {"ID", "Name", "Username", "Role", "Date Hired"};
+    private String[] columns = {"ID", "Name", "Username", "Role", "Date Hired", "is Blocked"};
 
     private ObservableList<ObservableList> tbl_data;
     
@@ -38,12 +41,168 @@ public class AccountManagementModuleController implements Initializable {
     private TableView acc_tbl;
     
     @FXML
+    private void accLogs(ActionEvent event) throws IOException {
+        Stage open = openModule("AccountLogsModule.fxml", Modality.WINDOW_MODAL, "Account Logs");
+        open.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            @Override
+            public void handle(WindowEvent event)
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        { 
+                            Stage a = openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Main Menu");
+                            a.setOnCloseRequest(new EventHandler<WindowEvent>()
+                            {
+                                @Override
+                                public void handle(WindowEvent event)
+                                {
+                                    Platform.runLater(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            try
+                                            { 
+                                                openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Main Menu").show();
+                                            }
+                                            catch (IOException ex)
+                                            {
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            a.show();
+                        }
+                        catch (IOException ex)
+                        {
+                        }
+                    }
+                });
+            }
+        });
+        open.show();
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
     private void addAccount(ActionEvent event) throws IOException
     {
         //Open register module
-        openModule("Register.fxml", Modality.APPLICATION_MODAL, "Register");
+        openModule("Register.fxml", Modality.APPLICATION_MODAL, "Register").showAndWait();
+        setItems();
     }
-           
+         
+    @FXML
+    private void salesReport(ActionEvent event) throws IOException {
+        Stage open = openModule("SalesReportModule.fxml", Modality.WINDOW_MODAL, "Sales Report");
+        open.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            @Override
+            public void handle(WindowEvent event)
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        { 
+                            Stage a = openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Main Menu");
+                            a.setOnCloseRequest(new EventHandler<WindowEvent>()
+                            {
+                                @Override
+                                public void handle(WindowEvent event)
+                                {
+                                    Platform.runLater(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            try
+                                            { 
+                                                openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Main Menu").show();
+                                            }
+                                            catch (IOException ex)
+                                            {
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            a.show();
+                        }
+                        catch (IOException ex)
+                        {
+                        }
+                    }
+                });
+            }
+        });
+        open.show();
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void menuReport(ActionEvent event) throws IOException {
+        Stage open = openModule("MenuReportModule.fxml", Modality.WINDOW_MODAL, "Food Management");open.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            @Override
+            public void handle(WindowEvent event)
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        { 
+                            Stage a = openModule("MainMenuModule.fxml", Modality.WINDOW_MODAL, "Main Menu");
+                            a.setOnCloseRequest(new EventHandler<WindowEvent>()
+                            {
+                                @Override
+                                public void handle(WindowEvent event)
+                                {
+                                    Platform.runLater(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            try
+                                            { 
+                                                openModule("SignInModule.fxml", Modality.WINDOW_MODAL, "Main Menu").show();
+                                            }
+                                            catch (IOException ex)
+                                            {
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                            a.show();
+                        }
+                        catch (IOException ex)
+                        {
+                        }
+                    }
+                });
+            }
+        });
+        open.show();
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+    
      @FXML
     public void clickItem(MouseEvent event) throws IOException
     {
@@ -67,7 +226,7 @@ public class AccountManagementModuleController implements Initializable {
                 Global.accMenuClickedItems[i] = Global.accMenuClickedItems[i].trim();
             }
             //Open register module
-            openModule("Register.fxml", Modality.APPLICATION_MODAL, "Register");
+            openModule("Register.fxml", Modality.APPLICATION_MODAL, "Register").showAndWait();
             setItems();
         }
     }
@@ -91,7 +250,7 @@ public class AccountManagementModuleController implements Initializable {
             acc_tbl.getColumns().clear();
             acc_tbl.getItems().clear();
             //this string is for getting all the accounts saved in the database
-            String SQL2 = "SELECT accounts_id, name, username, role, date_hired from accounts_tbl";
+            String SQL2 = "SELECT accounts_id, name, username, role, date_hired, isBlocked from accounts_tbl";
             //ResultSet for executing the query
             ResultSet rs2 = con.getConnection().createStatement().executeQuery(SQL2);
             //this will create columns
@@ -161,21 +320,19 @@ public class AccountManagementModuleController implements Initializable {
                 if (keyComb.match(ke)) {
                     try {
                         Global.isForAdminModule = true;
-                        Stage x = openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password");
+                        openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Enter password").show();
                         
                         ke.consume(); // <-- stops passing the event to next node
                     } catch (IOException ex) {
                         Logger.getLogger(MariansPOS_New.class.getName()).log(Level.SEVERE, null, ex);
                         ex.printStackTrace();
                     }
-                    System.out.println("dd");
                 }
             }
         });
         }
         stage.setScene(scene);  
         //this makes the window viewable to the user
-        stage.show();
 
         //this if statement is to check if the window is showned not as a dialog
         //if it is WINDOW_MODAL, the main menu or log in module will close from the screen

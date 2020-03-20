@@ -32,7 +32,7 @@
       </Label>
       <TextArea fx:id="description_ta" layoutX="24.0" layoutY="161.0" prefHeight="156.0" prefWidth="553.0" style="-fx-background-color: #fff; -fx-background-radius: 0; -fx-border-color: #616161;" />
       <ComboBox fx:id="category_cb" editable="true" layoutX="289.0" layoutY="100.0" prefHeight="32.0" prefWidth="289.0" promptText="Category" styleClass="category_cb" />
-      <ToggleButton fx:id="available_tb" layoutX="23.0" layoutY="343.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="119.0" style="-fx-background-radius: 0;" styleClass="available_tb" text="AVAILABLE">
+      <ToggleButton fx:id="available_tb" layoutX="23.0" layoutY="343.0" mnemonicParsing="false" onAction="#changeText" prefHeight="32.0" prefWidth="119.0" style="-fx-background-radius: 0;" styleClass="available_tb" text="AVAILABLE">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>
@@ -48,6 +48,11 @@
          </font>
       </TextField>
       <Button fx:id="add_btn" layoutX="427.0" layoutY="343.0" mnemonicParsing="false" onAction="#add" prefHeight="32.0" prefWidth="151.0" styleClass="addMenuBtn" text="ADD A MENU" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteBtn" layoutX="271.0" layoutY="343.0" mnemonicParsing="false" onAction="#deleteMenu" prefHeight="32.0" prefWidth="151.0" style="-fx-background-color: #af4448;" styleClass="addMenuBtn" text="DELETE A MENU" textFill="WHITE">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>

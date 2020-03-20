@@ -32,9 +32,7 @@ import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -96,14 +94,14 @@ public class MenuDialogController implements Initializable {
             float discount = total * .20f;
             //this willl set the value of discount
             discount_lbl.setText(String.valueOf(discount));
-            //automatically minus the discount to total
-            grandTotal_lbl.setText(String.valueOf(total-discount));
+            //automatically minus the discount to total 
+            grandTotal_lbl.setText(String.valueOf(Math.round((total-discount) * 100) / 100.0f));
         }
         else
         {
             //set the discount to 0 and grand total to the original value
             discount_lbl.setText("00.00");
-            grandTotal_lbl.setText(String.valueOf(total));
+            grandTotal_lbl.setText(String.valueOf(Math.round(total * 100) / 100.0f));
         }
     }
     
@@ -112,6 +110,7 @@ public class MenuDialogController implements Initializable {
     {
         if(!amountTendered_tf.getText().isEmpty() && Integer.parseInt(amountTendered_tf.getText()) != 0 && Double.parseDouble(change_lbl.getText()) >= 0)
         {
+            Global.isConfirmed = true;
             Calendar now = Calendar.getInstance();
             DBConnector db = new DBConnector();
             String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
@@ -142,16 +141,22 @@ public class MenuDialogController implements Initializable {
                             + "VALUES(?, ?, ?, ?)";
                 String orders = "";
                 String receiptOrders = "";
-                ObservableList<ObservableList> order1 = Global.orders;
+                ObservableList<ObservableList> order1 = FXCollections.observableArrayList();
+                order1.add(Global.orders.get(Global.orderNumberIndex));
                 for(ObservableList<ObservableList> order: order1)
                 {
-                    String arrOrder[] = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').split(", ");
-                    orders = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').replaceFirst(",", "-").replaceFirst(", ", "*").replaceFirst(", ", "=")
-                            + status + " | ";
-                    receiptOrders += String.format("%-30s\n", arrOrder[0].trim());
-                    receiptOrders += String.format("%-5s * %-10s Total:%-6s\n\n", arrOrder[1].trim(), arrOrder[2].trim(), arrOrder[3].trim());
+                    for(ObservableList<ObservableList> order2: order)
+                    {
+                        String arrOrder[] = order2.subList(0,4).toString().replace('[', ' ').replace(']', ' ').replace('[', ' ').replace(']', ' ').split(", ");
+                        orders += order2.subList(0,4).toString().replace('[', ' ').replace(']', ' ').replace('[', ' ').replace(']', ' ').replaceFirst(", ", "-").replaceFirst(", ", "*").replaceFirst(", ", "=")
+                                + status + " | ";
+                        receiptOrders += String.format("%-30s\n", arrOrder[0].trim());
+                        receiptOrders += String.format("%-5s * %-10s Total:%-6s\n\n", arrOrder[1].trim(), arrOrder[2].trim(), arrOrder[3].trim());
+                    }
+                    
                 }
-                
+                System.out.println("\n" + orders);
+                System.out.println("\n" + receiptOrders + "\n" + Global.orderNumber.get(Global.orderNumberIndex));
                 //first is to get the connection then prepare the statement query
                 //name.price,quantity,cost
                 PreparedStatement ps = db.getConnection().prepareStatement(sql);
@@ -176,7 +181,7 @@ public class MenuDialogController implements Initializable {
                 
                 receiptLayout.appendText(status + "\n");
                 receiptLayout.appendText("Transaction ID: " +  id + "\n");
-                receiptLayout.appendText("Order Number: " +  Global.orderNumber + "\n");
+                receiptLayout.appendText("Order Number: " +  Global.orderNumber.get(Global.orderNumberIndex) + "\n");
                 receiptLayout.appendText("========================================================\n");
                 receiptLayout.appendText("\n");
                 receiptLayout.appendText(receiptOrders);
@@ -187,7 +192,7 @@ public class MenuDialogController implements Initializable {
                 receiptLayout.appendText(String.format("%-11s:%-6s\n", "Change" ,change_lbl.getText()));
                 receiptLayout.appendText("Remarks: ________________________\n\n\n\n");
                 receiptLayout.appendText("-");
-                
+                System.out.println(receiptLayout.textProperty().get());
                 printOperation(receiptLayout);
                 
             } catch (SQLException ex) {
@@ -250,7 +255,7 @@ public class MenuDialogController implements Initializable {
             pwd_rb.setSelected(false);
             senior_rb.setSelected(false);
             discount_lbl.setText("0");
-            grandTotal_lbl.setText(String.valueOf(total));
+            grandTotal_lbl.setText(String.valueOf(Math.round(total * 100) / 100.0f));
         }
     }
     
@@ -267,11 +272,11 @@ public class MenuDialogController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        total = Global.totalCost;
+        total = Global.totalCost.get(Global.orderNumberIndex);
         float tax = Math.round((total  * .12)* 100) / 100.0f;
         
         total_lbl.setText(String.valueOf(total));
-        grandTotal_lbl.setText(String.valueOf(total));
+        grandTotal_lbl.setText(String.valueOf(Math.round(total * 100) / 100.0f));
         tax_lbl.setText(String.valueOf(tax));
         amountTendered_tf.setText("0");
         

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="894.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.AccountLogsModuleController">
+    <stylesheets>
+        <URL value="@accountlogsmodule.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="log_tbl" layoutX="39.0" layoutY="109.0" prefHeight="395.0" prefWidth="816.0" />
+      <DatePicker id="datePicker" fx:id="fromDatePicker" layoutX="86.0" layoutY="47.0" onAction="#load" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;" styleClass="datePicker" />
+      <Label layoutX="39.0" layoutY="48.0" text="From">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
+      <DatePicker id="datePicker" fx:id="toDatePicker" layoutX="373.0" layoutY="46.0" onAction="#load" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;" styleClass="datePicker" />
+      <Label layoutX="346.0" layoutY="47.0" text="TO">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="shift_cb" layoutX="599.0" layoutY="47.0" onAction="#load" prefHeight="24.0" prefWidth="99.0" promptText="Shift" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="category_cb" />
+      <Button alignment="CENTER" layoutX="39.0" layoutY="514.0" mnemonicParsing="false" onAction="#menuReport" prefHeight="32.0" prefWidth="158.0" styleClass="menuReportBtn" stylesheets="@mainMenuModule.css" text="FOOD MANAGEMENT" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="208.0" layoutY="514.0" mnemonicParsing="false" onAction="#accountReport" prefHeight="32.0" prefWidth="187.0" styleClass="accMgmBtn" stylesheets="@mainMenuModule.css" text="ACCOUNT MANAGEMENT" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="405.0" layoutY="514.0" mnemonicParsing="false" onAction="#salesReport" prefHeight="32.0" prefWidth="112.0" styleClass="salesReportBtn" stylesheets="@mainMenuModule.css" text="SALES REPORT" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

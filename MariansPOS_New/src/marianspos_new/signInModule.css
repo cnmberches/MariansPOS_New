@@ -23,3 +23,15 @@
     -fx-background-color: rgba(51,54,82, .2);
     -fx-text-fill: rgba(255,255,255,.8);
 }
+
+.eye_btn
+{
+    -fx-background-image: url('../images_and_icons/eye.png');
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-background-size: 16px 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

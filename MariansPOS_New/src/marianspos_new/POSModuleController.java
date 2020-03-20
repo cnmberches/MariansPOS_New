@@ -53,6 +53,7 @@ public class POSModuleController implements Initializable {
     private ObservableList<ObservableList> orders_data;
     private int total = 0;
     private int orderNumber = 0;
+    private ObservableList<ObservableList> selectedOrder, allOrders;
     
     @FXML
     private AnchorPane anchorPane;
@@ -140,43 +141,50 @@ public class POSModuleController implements Initializable {
             String orders = "";
             String receiptOrders = "";
             ObservableList<ObservableList> order1 = orders_tbl.getItems();
+            ObservableList<ObservableList> allOrders = FXCollections.observableArrayList();
             for(ObservableList<ObservableList> order: order1)
             {
                 String arrOrder[] = order.subList(0,4).toString().replace('[', ' ').replace(']', ' ').split(", ");
                 orders += arrOrder[2] + " " + arrOrder[0] + " | ";
                 receiptOrders += arrOrder[2] + " " + arrOrder[0] + " | \n";
-                Global.orders.add(order);
+                allOrders.add(order);
             }
-            
-            Global.orderNumber = orderNumber;
-            Global.totalCost = total;
+            Global.orders.add(allOrders);
+            Global.orderNumber.add(orderNumber);
+            Global.totalCost.add(total);
             ObservableList<String> ordNum = FXCollections.observableArrayList();
             ordNum.add(String.valueOf(orderNumber));
             ordNum.add(orders);
             POSSecondModuleController.preparing_data.add(ordNum);
             
-            printOperation("Order No: " + orderNumber + "\n" + orders + "\n\n\n\n-");
+            System.out.println("Order No: " + orderNumber + "\n" + receiptOrders + "\n\n\n\n-");
+            
+            printOperation("Order No: " + orderNumber + "\n" + receiptOrders + "\n\n\n\n-");
             orders_data.clear();
             total = 0;
         }
     }
     
     @FXML
-    public void voidItem(MouseEvent event) throws IOException
+    private void voidItem(ActionEvent e) throws IOException
+    {
+        openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Void").showAndWait();
+        if(Global.isVoid)
+        {
+            total -= Integer.parseInt(selectedOrder.get(0).get(3).toString());
+
+            selectedOrder.forEach(allOrders::remove);
+            Global.isVoid = false;
+        }
+    }
+    
+    @FXML
+    public void voidItemClick(MouseEvent event) throws IOException
     {
         if(!orders_data.isEmpty())
         {
-            openModule("adminPassword.fxml", Modality.APPLICATION_MODAL, "Void").showAndWait();
-            if(Global.isVoid)
-            {
-                ObservableList<ObservableList> selectedOrder, allOrders;
-                allOrders = orders_tbl.getItems();
-                selectedOrder = orders_tbl.getSelectionModel().getSelectedItems();
-                total -= Integer.parseInt(selectedOrder.get(0).get(3).toString());
-                
-                selectedOrder.forEach(allOrders::remove);
-                Global.isVoid = false;
-            }
+            allOrders = orders_tbl.getItems();
+            selectedOrder = orders_tbl.getSelectionModel().getSelectedItems();
         }
     }
 
@@ -368,7 +376,7 @@ public class POSModuleController implements Initializable {
         }
     }
     
-     private void searchMenu(String wordToSearch)
+    private void searchMenu(String wordToSearch)
     {
         DBConnector con = new DBConnector();
         try

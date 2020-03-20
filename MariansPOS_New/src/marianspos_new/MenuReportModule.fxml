@@ -3,19 +3,40 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="910.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.MenuReportModuleController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="910.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marianspos_new.MenuReportModuleController">
     <stylesheets>
         <URL value="@menuReportModule.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="menu_tbl" layoutX="29.0" layoutY="26.0" onMouseClicked="#clickItem" prefHeight="513.0" prefWidth="852.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="menu_tbl">
+      <TableView fx:id="menu_tbl" layoutX="29.0" layoutY="85.0" onMouseClicked="#clickItem" prefHeight="513.0" prefWidth="852.0" style="-fx-background-color: #fff; -fx-border-color: #bdbdbd;" styleClass="menu_tbl">
          <columnResizePolicy>
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="730.0" layoutY="587.0" mnemonicParsing="false" onAction="#add_menu" prefHeight="32.0" prefWidth="151.0" styleClass="addMenuBtn" text="ADD A MENU" textFill="WHITE">
+      <Button layoutX="730.0" layoutY="654.0" mnemonicParsing="false" onAction="#add_menu" prefHeight="32.0" prefWidth="151.0" styleClass="addMenuBtn" text="ADD A MENU" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="224.0" layoutY="654.0" mnemonicParsing="false" onAction="#salesReport" prefHeight="32.0" prefWidth="112.0" styleClass="salesReportBtn" stylesheets="@mainMenuModule.css" text="SALES REPORT" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="29.0" layoutY="654.0" mnemonicParsing="false" onAction="#accountReport" prefHeight="32.0" prefWidth="186.0" styleClass="accMgmBtn" stylesheets="@mainMenuModule.css" text="ACCOUNT MANAGEMENT" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </Button>
+      <TextField fx:id="search_tf" layoutX="29.0" layoutY="28.0" onKeyReleased="#search" prefHeight="32.0" prefWidth="373.0" promptText="search a menu" style="-fx-background-radius: 0; -fx-background-color: #fff; -fx-border-color: #616161;">
+         <font>
+            <Font name="Poppins Regular" size="14.0" />
+         </font>
+      </TextField>
+      <Button alignment="CENTER" layoutX="349.0" layoutY="654.0" mnemonicParsing="false" onAction="#accLogs" prefHeight="32.0" prefWidth="130.0" styleClass="accLogsBtn" stylesheets="@mainMenuModule.css" text="ACCOUNT LOGS" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Poppins Regular" size="14.0" />
          </font>
